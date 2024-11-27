@@ -21,25 +21,30 @@ pipeline{
         }
         stage('Acceptance Testing'){
             steps{
-                echo "Acceptance testing"
+                echo "Acceptance testing is successful."
             }
         }
         stage('Regression Testing'){
             steps{
-                echo "Regression testing"
+                echo "Regression testing is successful."
             }
         }
-        parallel{
-        stage('Performance Testing'){
-            steps{
-                echo "Performance testing"
+        stage('Parallel Tasks'){
+          parallel{
+            stage('Parallel nested stages') {
+              stages{
+                stage('Performance Testing') {
+                  steps {
+                      echo 'Performance testing is successful.'
+                  }
+                }
+                stage('Code Quality Check Test') {
+                  steps {
+                  echo 'Code quality check is successful.'
+                    }
+                }
             }
-        }
-        stage('Code Quality Check Test'){
-            steps{
-                echo "Code quality check test"
-            }
-        }
+          }
         }
     }
 }
