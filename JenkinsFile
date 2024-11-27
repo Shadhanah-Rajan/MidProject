@@ -19,5 +19,29 @@ pipeline{
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
+        stage('Parallel Task with 4 sub stages'){
+            stage('Acceptance Testing'){
+                steps{
+                    echo "Acceptance testing"
+                }
+            }
+            stage('Regression Testing'){
+                steps{
+                    echo "Regression testing"
+                }
+            }
+            parallel{
+            stage('Performance Testing'){
+                steps{
+                    echo "Performance testing"
+                }
+            }
+            stage('Code Quality Check Test'){
+                steps{
+                    echo "Code quality check test"
+                }
+            }
+            }
+        }
     }
 }
