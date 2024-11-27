@@ -14,7 +14,7 @@ pipeline{
         }
         stage('Clean Package'){
             steps{
-                git branch: 'Main' , url: 'https://github.com/devopsusergit/PetStoreWebApp.git'
+                
                 echo "Running clean package"
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
