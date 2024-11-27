@@ -1,31 +1,23 @@
-pipeline {
+pipeline{
     agent any
-
-    parameters {
-        string defaultValue: 'Main', name: 'BranchName'
+    tools{
+        maven "maven"
+        jdk "java"
+        git "git"
     }
-
-    stages {
-        stage('Build') {
-            when{
-                expression {params.BranchName=='Build'}
-            }
-            steps {
-                echo "This is Build"
-                git branch:'Main', url:'https://github.com/Shadhanah-Rajan/PetStoreWebApp.git'
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+    stages{
+        stage('CheckOut from GIT'){
+            steps{
+                echo "Checking out from git"
+                git branch: 'Main' , url: 'https://github.com/Shadhanah-Rajan/PetStoreWebApp.git'
             }
         }
-        stage('Tets') {
-            when{
-                expression {params.BranchName=='Test'}
-            }
-            steps {
-                echo "This is Test"
-                git branch:'Main', url:'https://github.com/Shadhanah-Rajan/PetStoreWebApp.git'
+        stage('Clean Package'){
+            steps{
+                git branch: 'Main' , url: 'https://github.com/devopsusergit/PetStoreWebApp.git'
+                echo "Running clean package"
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
     }
 }
-
