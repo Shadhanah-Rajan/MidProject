@@ -29,7 +29,7 @@ pipeline{
                 echo "Regression testing is successful."
             }
         }
-        stage(Parallel Tasks'){
+        stage('Parallel Tasks'){
             parallel{
             stage('Parallel nested stages') {
               stages{
