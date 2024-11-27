@@ -41,11 +41,10 @@ pipeline{
                 stage('Code Quality Check Test') {
                   steps {
                   echo 'Code quality check is successful.'
-                    }
+                  }
                 }
+              }
             }
-          }
         }
     }
-}
 }
