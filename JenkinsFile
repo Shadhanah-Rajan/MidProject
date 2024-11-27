@@ -31,19 +31,15 @@ pipeline{
         }
         stage('Parallel Tasks'){
             parallel{
-                stage('Parallel nested stages') {
-                  stages{
-                    stage('Performance Testing') {
-                      steps {
-                          echo 'Performance testing is successful.'
-                      }
+                stage('Performance Testing') {
+                    steps {
+                        echo 'Performance testing is successful.'
                     }
-                    stage('Code Quality Check Test') {
-                      steps {
-                          echo 'Code quality check is successful.'
-                        }
+                }
+                stage('Code Quality Check Test') {
+                    steps {
+                        echo 'Code quality check is successful.'
                     }
-                  }
                 }
             }
         }
