@@ -19,17 +19,7 @@ pipeline{
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
-        stage('Acceptance Testing'){
-            steps{
-                echo "Acceptance testing is successful."
-            }
-        }
-        stage('Regression Testing'){
-            steps{
-                echo "Regression testing is successful."
-            }
-        }
-        stage('Parallel Tasks'){
+        stage('Testing'){
             parallel{
                 stage('Performance Testing') {
                     steps {
@@ -39,6 +29,16 @@ pipeline{
                 stage('Code Quality Check Test') {
                     steps {
                         echo 'Code quality check is successful.'
+                    }
+                }
+                stage('Acceptance Testing'){
+                    steps{
+                        echo "Acceptance testing is successful."
+                    }
+                }
+                stage('Regression Testing'){
+                    steps{
+                        echo "Regression testing is successful."
                     }
                 }
             }
