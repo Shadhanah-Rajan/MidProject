@@ -21,16 +21,6 @@ pipeline{
         }
         stage('Testing'){
             parallel{
-                stage('Performance Testing') {
-                    steps {
-                        echo 'Performance testing is successful.'
-                    }
-                }
-                stage('Code Quality Check Test') {
-                    steps {
-                        echo 'Code quality check is successful.'
-                    }
-                }
                 stage('Sequential Testing'){
                 stages{
                     stage('Acceptance Testing'){
@@ -44,6 +34,16 @@ pipeline{
                         }
                     }
                 }
+                }
+                stage('Performance Testing') {
+                    steps {
+                        echo 'Performance testing is successful.'
+                    }
+                }
+                stage('Code Quality Check Test') {
+                    steps {
+                        echo 'Code quality check is successful.'
+                    }
                 }
             }
         }
