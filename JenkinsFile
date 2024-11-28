@@ -32,6 +32,7 @@ pipeline{
                     }
                 }
                 stage('Sequential Testing'){
+                stages{
                     stage('Acceptance Testing'){
                         steps{
                             echo "Acceptance testing is successful."
@@ -42,6 +43,7 @@ pipeline{
                             echo "Regression testing is successful."
                         }
                     }
+                }
                 }
             }
         }
