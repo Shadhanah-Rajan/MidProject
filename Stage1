@@ -1,1 +1,16 @@
-
+pipeline{
+    agent any
+    tools{
+        maven "maven"
+        jdk "java"
+        git "git"
+    }
+    stages{
+        stage('CheckOut from GIT'){
+            steps{
+                echo "Checking out from git"
+                git branch: 'Main' , url: 'https://github.com/Shadhanah-Rajan/PetStoreWebApp.git'
+            }
+        }
+    }
+}
