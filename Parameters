@@ -1,60 +1,56 @@
 pipeline{
     agent any
-    tools{
-        jdk java
-        maven maven
-        git git
-    }
     parameters{
-        string defaultValue: 'Checkout', name: 'filename'
+        string defaultValue: 'Stage1', name: 'StageName'
     }
     stages{
-        stage('Checkout'){
+        stage('Stage1'){
             when{
-                expression {params.filename == 'Checkout'}
+                expression {params.StageName == 'Stage1'}
             }
             steps{
-                echo "Checking out from git"
-                git branch: 'Main' , url: 'https://github.com/Shadhanah-Rajan/PetStoreWebApp.git'
+                echo "This is first stage"
+                git branch:'Main' , url: 'https://github.com/Shadhanah-Rajan/PetStoreWebApp.git'
+                //sh "mvn clean package"
             }
         }
-        stage('Clean Package'){
+        stage('Stage2'){
             when{
-                expression {params.filename == 'Clean Package'}
+                expression {params.StageName == 'Stage2'}
             }
             steps{
-                echo "Running clean package"
-                git branch: 'Main' , url: 'https://github.com/Shadhanah-Rajan/PetStoreWebApp.git'
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"  
+                echo "This is second stage."
+                //git branch:'Stage1' , url: 'https://github.com/Shadhanah-Rajan/MidProject.git'
+                sh "mvn clean package"
             }
         }
-        stage('Testing'){
+        stage('Stage3'){
             when{
-                expression {params.filename == 'Testing'}
+                expression {params.StageName == 'Stage3'}
             }
             parallel{
+                stage('Performance Testing'){
+                    steps{
+                        echo('This is Performance testing.')
+                    }
+                }
+                stage('Quality Check'){
+                    steps{
+                        echo('This is quality check.')
+                    }
+                }
                 stage('Sequential Testing'){
-                stages{
-                    stage('Acceptance Testing'){
-                        steps{
-                            echo "Acceptance testing is successful."
+                    stages{
+                        stage('Acceptance Testing'){
+                            steps{
+                                echo "Acceptance testing is successful."
+                            }
                         }
-                    }
-                    stage('Regression Testing'){
-                        steps{
-                            echo "Regression testing is successful."
+                        stage('Regression Testing'){
+                            steps{
+                                echo "Regression testing is successful."
+                            }
                         }
-                    }
-                }
-                }
-                stage('Performance Testing') {
-                    steps {
-                        echo 'Performance testing is successful.'
-                    }
-                }
-                stage('Code Quality Check Test') {
-                    steps {
-                        echo 'Code quality check is successful.'
                     }
                 }
             }
