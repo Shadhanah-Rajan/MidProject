@@ -1,12 +1,13 @@
 pipeline{
     agent any
-    tools{
-        maven "maven"
-        jdk "java"
-        git "git"
+    parameters{
+        string defaultValue:'CheckOut from GIT', name:'StageName'
     }
     stages{
         stage('CheckOut from GIT'){
+            when{
+                expression {params.StageName == 'CheckOut from GIT'}
+            }
             steps{
                 echo "Checking out from git"
                 git branch: 'Main' , url: 'https://github.com/Shadhanah-Rajan/PetStoreWebApp.git'
