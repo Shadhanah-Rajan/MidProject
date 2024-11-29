@@ -1,12 +1,13 @@
 pipeline{
     agent any
-    tools{
-        maven "maven"
-        jdk "java"
-        git "git"
+    parameters{
+        string defaultValue:'CheckOut from GIT', name:'StageName'
     }
     stages{
         stage('Clean Package'){
+            when{
+                expression {params.StageName == 'Clean Package'}
+            }
             steps{
                 echo "Running clean package"
                 git branch: 'Main' , url: 'https://github.com/Shadhanah-Rajan/PetStoreWebApp.git'
