@@ -1,12 +1,13 @@
 pipeline{
     agent any
-    tools{
-        maven "maven"
-        jdk "java"
-        git "git"
+    parameters{
+        string defaultValue:'CheckOut from GIT', name:'StageName'
     }
     stages{
         stage('Testing'){
+            when{
+            expression {params.StageName == 'Testing'}
+            }
             parallel{
                 stage('Sequential Testing'){
                 stages{
