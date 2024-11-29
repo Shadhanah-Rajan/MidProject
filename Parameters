@@ -20,7 +20,7 @@ pipeline{
             }
             steps{
                 echo "This is second stage."
-                //git branch:'Stage1' , url: 'https://github.com/Shadhanah-Rajan/MidProject.git'
+                git branch:'Stage1' , url: 'https://github.com/Shadhanah-Rajan/MidProject.git'
                 sh "mvn clean package"
             }
         }
